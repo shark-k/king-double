@@ -1,0 +1,17 @@
+{
+  "name": "king-double",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/shark-k/king-double.git",
+  "author": "Administrator <fengyued223@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "fs": "^0.0.1-security",
+    "multer": "^1.4.4",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.7.2",
+    "path": "^0.12.7",
+    "static": "^2.0.0"
+  }
+}
