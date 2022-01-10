@@ -2,7 +2,7 @@ const mysql=require('mysql');
 //创建连接池
 let pool = mysql.createPool({
     connectionLimit:10,         /*最大连接数*/
-    host: 'localhost',          /*主机地址*/
+    host: '192.168.10.3',          /*主机地址*/
     port:3306,                  /*设置端口号，不设置默认3306*/
     user: 'root',               /*数据库用户名*/
     password : 'admin123',      /*数据库密码*/

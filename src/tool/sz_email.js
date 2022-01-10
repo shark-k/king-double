@@ -7,7 +7,7 @@ let transporter=nodemailer.createTransport({
     secure:true,//secure:true 对应port 465;secure:false 对应port 587
     auth:{
         user:'594135484@qq.com',
-        pass:'rmgpxlmxgcjebdaj'
+        pass:'myzilckikgvsbded'
     }
 });
 function sendMail(toUser,title,content){
