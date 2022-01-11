@@ -6,7 +6,7 @@ let app=express();
 
 //挂载路由中间件
 app.use("/",homeRouter);
-abcdd();
+
 
 //创建程序监听
 app.listen(5000,()=>{
