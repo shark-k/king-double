@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>404页面</title>
+  <style>
+    
+    h2{
+        width: 100%;
+        line-height: 50px;
+        text-align: center;
+        color: tomato;
+    }
+    p{
+        text-align: center;
+        
+    }
+    .back{
+        width: 100px;
+        line-height: 40px;
+        background-color: tomato;
+        color: #ffffff;
+        text-align: center;
+        margin: 0 auto;
+        cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>重新定义你的404界面!5S后，跳转到首页!</h2>
+  <p>让错误的页面更简单，让繁琐的下载更纯粹</p>
+<div class="back" onclick="backHome()">返回首页</div>
+  <script>
+    function backHome(){
+        window.location='/';
+    }
+    setTimeout(backHome,5000);
+  </script>
+</body>
+</html>
