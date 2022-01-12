@@ -3,6 +3,7 @@ const {getCurrentTime}=require('../tools/sz_dateTime')
 const fs=require('fs');
 const {sendMail}=require('../tools/sz_email');
 const {execSQL}=require("../tools/sz_mysql");
+const {ResponseTemp} = require("../tools/sz_message");
 //404中间件
 let notFoundMF=function (notFoundFilePath){
     if(!path.isAbsolute(notFoundFilePath)){
@@ -95,10 +96,24 @@ let crossDomainM=(req,resp,next)=>{
     resp.header("Access-Control-Allow-Headers","Content-Type")
    next()
 }
+//工具中间件
+let toolM=(req,resp,next)=>{
+    resp.tool={
+        execSQL,ResponseTemp:function (code,msg,data){
+            return{
+                code,
+                msg,
+                data
+            }
+        }
+    }
+    next();
+}
 //回调参数
 module.exports={
     notFoundMF,
     rizhiMF,
     handleErrorMF,
-    crossDomainM
+    crossDomainM,
+    toolM
 }
