@@ -132,5 +132,6 @@ module.exports={
     rizhiMF,
     handleErrorMF,
     crossDomainM,
-    toolM
+    toolM,
+
 }
