@@ -98,13 +98,30 @@ let crossDomainM=(req,resp,next)=>{
 }
 //工具中间件
 let toolM=(req,resp,next)=>{
+    function ResponseTemp(code,msg,data){
+        return{
+            code,
+            msg,
+            data
+        }
+
+    }
     resp.tool={
-        execSQL,ResponseTemp:function (code,msg,data){
-            return{
-                code,
-                msg,
-                data
-            }
+        execSQL,
+        ResponseTemp,
+        execSQLAutoResponse:function (sql,successMsg="查询成功",handlerResultF=result=>result){
+            execSQL(sql).then(result=>{
+                resp.send(ResponseTemp(0,successMsg,handlerResultF(result)))
+            }).catch(error=>{
+                resp.send(ResponseTemp(-1,"Api出现错误",null))
+            })
+        },
+        execSQLTEMPAutoResponse:function (sqlTEMP,value=[],successMsg="查询成功",handlerResultF=result=>result){
+            execSQL(sqlTEMP).then(result=>{
+                resp.send(ResponseTemp(0,successMsg,handlerResultF(result)))
+            }).catch(error=>{
+                resp.send(ResponseTemp(-1,"Api出现错误",null))
+            })
         }
     }
     next();
