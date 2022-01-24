@@ -5,6 +5,7 @@ const teacherRouter=require("./routers/teacherRouter");
 const courseRouter=require("./routers/courseRouter");
 const articleRouter=require("./routers/articleRouter");
 const searchRouter=require("./routers/searchRouter");
+const userRouter=require("./routers/userRouter");
 const {notFoundMF, rizhiMF, handleErrorMF,crossDomainM,toolM}=require("./middleware/sz_middleware");
 const url = require("url");
 //创建服务程序
@@ -25,6 +26,7 @@ app.use("/teacher",teacherRouter);
 app.use("/course",courseRouter);
 app.use("/article",articleRouter);
 app.use("/search",searchRouter);
+app.use("/user",userRouter);
 //404中间件
 app.use(notFoundMF(path.resolve(__dirname,"./defaultPages/404.html")));
 //500中间件

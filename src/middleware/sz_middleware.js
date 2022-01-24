@@ -116,11 +116,11 @@ let toolM=(req,resp,next)=>{
                 resp.send(ResponseTemp(-1,"Api出现错误",null))
             })
         },
-        execSQLTEMPAutoResponse:function (sqlTEMP,value=[],successMsg="查询成功",handlerResultF=result=>result){
-            execSQL(sqlTEMP).then(result=>{
+        execSQLTEMPAutoResponse:function (sqlTEMP,values=[],successMsg="查询成功",handlerResultF=result=>result){
+            execSQL(sqlTEMP,values).then(result=>{
                 resp.send(ResponseTemp(0,successMsg,handlerResultF(result)))
             }).catch(error=>{
-                resp.send(ResponseTemp(-1,"Api出现错误",null))
+                resp.send(ResponseTemp(-1,"Api出现错误",error))
             })
         }
     }
@@ -132,6 +132,6 @@ module.exports={
     rizhiMF,
     handleErrorMF,
     crossDomainM,
-    toolM,
+    toolM,ResponseTemp
 
 }
