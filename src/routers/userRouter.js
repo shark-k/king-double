@@ -1,6 +1,8 @@
 const  express=require("express");
-const {execSQL} = require("../tools/sz_mysql");
-
+ const {execSQL} = require("../tools/sz_mysql");
+const  multer = require("multer");
+const  path=require("path");
+const fs=require("fs");
 //创建路由中间件
 let router=express.Router();
 
@@ -36,6 +38,7 @@ router.post('/register',(req,resp,next)=> {
 //2、登录接口
 router.post('/login',(req,resp,next)=>{
    const {account,password}=req.body;
+
    resp.tool.execSQLTEMPAutoResponse(`
    select id ,account,nick_name,header,intro from t_user where account=? and password=?
    `,[account,password],"验证信息",result=>{
@@ -115,7 +118,43 @@ router.post('/update_study_history',(req,resp,next)=>{
         }
     })
 })
+//5、头像上传/更新
+let uploader=multer({dest:path.resolve(__dirname,"../public/images/user")})
+router.post("/update_header",uploader.single("header"),(req,resp,next)=>{
+    let file=req.file;
+    let {user_id}=req.body;
+    // console.log(file);
+    //获取扩展名
+    let extName=path.extname(file.originalname);
+    //重新命名
+    fs.renameSync(file.path,path.resolve(__dirname,"../public/images/user/",file.filename+extName));
+    //删除旧图片
+    resp.tool.execSQL(`
+    select header from t_user where id=?;
+    `,[user_id]).then(result=>{
+        if (result.length>0){
+            let userObj=result[0];
+            let userHeaderPath=userObj.header;
+            //不是默认头像
+            if(userHeaderPath.toLowerCase()!=="/images/user/xl.jpg"){
+                //删除图片
+            fs.unlinkSync(path.resolve(__dirname,"../public"+userHeaderPath))
+            }
+                //更新图片
+            let newPath=`/images/user/${file.filename+extName}`;
+            resp.tool.execSQLTEMPAutoResponse(`
+            update t_user set header =? where id =?;
+            `,[newPath,user_id],"更新成功！",result=>{
+                return{
+                    user_id,
+                    user_header:newPath
+                }
+            })
 
+        }
+    })
+
+})
 
 
 //导出路由中间件
