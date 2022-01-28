@@ -1,5 +1,5 @@
 const  express=require("express");
- const {execSQL} = require("../tools/sz_mysql");
+ const {execSQL} = require("../../tools/sz_mysql");
 const  multer = require("multer");
 const  path=require("path");
 const fs=require("fs");
@@ -125,14 +125,14 @@ router.post('/update_study_history',(req,resp,next)=>{
     })
 })
 //5、头像上传/更新
-let uploader=multer({dest:path.resolve(__dirname,"../public/images/user")})
+let uploader=multer({dest:path.resolve(__dirname,"../../public/images/user")})
 router.post("/update_header",uploader.single("header"),(req,resp,next)=>{
     let file=req.file;
     let {user_id}=req.body;
     //获取扩展名
     let extName=path.extname(file.originalname);
     //重新命名
-    fs.renameSync(file.path,path.resolve(__dirname,"../public/images/user/",file.filename+extName));
+    fs.renameSync(file.path,path.resolve(__dirname,"../../public/images/user/",file.filename+extName));
     //删除旧图片
     resp.tool.execSQL(`
     select header from t_user where id=?;
@@ -143,7 +143,7 @@ router.post("/update_header",uploader.single("header"),(req,resp,next)=>{
             //不是默认头像
             if(userHeaderPath.toLowerCase()!=="/images/user/xl.jpg"){
                 //删除图片
-            fs.unlinkSync(path.resolve(__dirname,"../public"+userHeaderPath))
+            fs.unlinkSync(path.resolve(__dirname,"../../public"+userHeaderPath))
             }
                 //更新图片
             let newPath=`/images/user/${file.filename+extName}`;

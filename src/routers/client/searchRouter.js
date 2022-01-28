@@ -1,11 +1,13 @@
 const  express=require("express");
-
+//转码
+const {decode}=require("html-entities");
 //创建路由中间件
 let router=express.Router();
 
 //课程搜索
 router.get("/course",(req,resp,next)=>{
-   const {key=""}=req.query;
+   let {key=""}=req.query;
+   key = decode(key);
     resp.tool.execSQLAutoResponse(`
      SELECT
         t_course.id,
