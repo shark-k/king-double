@@ -6,7 +6,7 @@ let pool = mysql.createPool({
     host:"localhost",
     port:3306,                  /*设置端口号，不设置默认3306*/
     user: 'root',               /*数据库用户名*/
-    password : 'admin123',      /*数据库密码*/
+    password : 'admin@1234',      /*数据库密码*/
     database : 'shoplike'       /*数据库名称*/
 });
 function execSQL(sqlTemp,values=[],successCB,failCB){
